@@ -15,21 +15,41 @@ import ChainList from '@/components/ChainList';
 import WalletAction from '@/components/WalletAction';
 import WalletList from '@/components/WalletList';
 import { SUPPORTED_CHAINS } from '@/constants';
-import { WalletsAction } from '@/reducers/walletsReducer';
 import { useBoundStore } from '@/stores/useBoundStore';
-import { Wallet } from '@/types';
+import { usePersistentAppStore } from '@/stores/persistentAppState';
 
-interface SideBarProps {
-  wallets: Wallet[];
-  handleAdd: (walletName?: string, walletAddress?: string) => void;
-  handleEdit: (id: number) => void;
-  dispatch: (action: WalletsAction) => void;
-}
-const SideBar: FunctionComponent<SideBarProps> = ({ wallets, handleAdd, handleEdit, dispatch }) => {
-  const [activeWallet, setActiveWallet] = useBoundStore((state) => [
-    state.activeWallet,
-    state.setActiveWallet,
-  ]);
+interface SideBarProps {}
+const SideBar: FunctionComponent<SideBarProps> = () => {
+  const [activeWallet, setActiveWallet, setWalletInputs, showWalletModal, setShowWalletModal] =
+    useBoundStore((state) => [
+      state.activeWallet,
+      state.setActiveWallet,
+      state.setWalletInputs,
+      state.showWalletModal,
+      state.setShowWalletModal,
+    ]);
+  const { wallets, walletDispatch: dispatch } = usePersistentAppStore();
+
+  const toggleWalletModal = () => {
+    setShowWalletModal(!showWalletModal);
+  };
+
+  const handleAdd = (walletName?: string, walletAddress?: string) => {
+    setWalletInputs(
+      walletName || walletAddress
+        ? {
+            id: undefined,
+            walletName: walletName ?? '',
+            walletAddress: walletAddress ?? '',
+          }
+        : undefined,
+    );
+    toggleWalletModal();
+  };
+  const handleEdit = (id: number) => {
+    setWalletInputs(wallets.find((wallet) => wallet.id === id));
+    toggleWalletModal();
+  };
 
   return (
     <>

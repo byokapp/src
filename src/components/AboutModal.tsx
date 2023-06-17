@@ -49,7 +49,6 @@ const AboutModal: FunctionComponent<AboutModalProps> = ({ toggleModal, showModal
                 href={
                   'https://app.safe.global/home?safe=eth:0x4c4D83cC5913623Cc1B65EFeB9B40809D7e37181'
                 }
-                sx={{ text_decoration: 'none' }}
               >
                 byokapp.eth
               </ExternalLink>
