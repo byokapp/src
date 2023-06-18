@@ -4,12 +4,13 @@ import {
   HelpCircle,
   Loader,
   Maximize,
+  Menu,
   Moon,
   RefreshCcw,
   Sun,
   UploadCloud,
 } from 'preact-feather';
-import { AppBar, Box, Divider, Stack, Toolbar, Tooltip, Typography } from '@mui/material';
+import { AppBar, Box, Divider, IconButton, Stack, Toolbar, Tooltip, Typography } from '@mui/material';
 import { shallow } from 'zustand/shallow';
 
 import { APPNAME } from '@/constants';
@@ -22,8 +23,10 @@ import ChainsMenu from '@/components/ChainsMenu';
 
 interface TopBarProps {
   sparse: boolean;
+  drawerOpen: boolean;
+  handleDrawerOpen: ()=> void;
 }
-const TopBar: FunctionComponent<TopBarProps> = ({ sparse }) => {
+const TopBar: FunctionComponent<TopBarProps> = ({ sparse, drawerOpen, handleDrawerOpen }) => {
   const [
     isLoading,
     activeWallet,
@@ -58,6 +61,19 @@ const TopBar: FunctionComponent<TopBarProps> = ({ sparse }) => {
   return (
     <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
       <Toolbar>
+        <IconButton 
+          color="inherit"
+          aria-label="open drawer"
+          onClick={handleDrawerOpen}
+          edge="start"
+          sx={{
+            marginRight: 5,
+            ...(drawerOpen && { display: 'none' }),
+          }}
+        >
+          <Menu size={25}/>
+        </IconButton> 
+
         <Typography variant="h5" noWrap sx={{ flexGrow: 1 }}>
           {APPNAME}
         </Typography>

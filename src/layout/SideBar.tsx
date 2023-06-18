@@ -97,13 +97,6 @@ const SideBar: FunctionComponent<SideBarProps> = () => {
             </Link>
           </ListItemButton>
         </ListItem>
-        {/* <ListItem key={'About'}>
-          <ListItemButton>
-            <Link href="/about">
-              <ListItemText primary={'About'} />
-            </Link>
-          </ListItemButton>
-        </ListItem> */}
       </List>
     </>
   );

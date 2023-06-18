@@ -4,15 +4,6 @@ import { Divider, List, ListItem, ListItemButton, ListItemText } from '@mui/mate
 
 const UsesSide: FunctionComponent = () => {
   return (
-    <>
-      <List dense={false}>
-        <ListItem key={'<blank>'} disablePadding>
-          <ListItemButton>
-            <ListItemText primary={''} />
-          </ListItemButton>
-        </ListItem>
-      </List>
-      <Divider />
       <List dense={false}>
         <ListItem key={'Home'} disablePadding>
           <ListItemButton>
@@ -22,7 +13,6 @@ const UsesSide: FunctionComponent = () => {
           </ListItemButton>
         </ListItem>
       </List>
-    </>
   );
 };
 
