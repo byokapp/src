@@ -10,7 +10,16 @@ import {
   Sun,
   UploadCloud,
 } from 'preact-feather';
-import { AppBar, Box, Divider, IconButton, Stack, Toolbar, Tooltip, Typography } from '@mui/material';
+import {
+  AppBar,
+  Box,
+  Divider,
+  IconButton,
+  Stack,
+  Toolbar,
+  Tooltip,
+  Typography,
+} from '@mui/material';
 import { shallow } from 'zustand/shallow';
 
 import { APPNAME } from '@/constants';
@@ -24,7 +33,7 @@ import ChainsMenu from '@/components/ChainsMenu';
 interface TopBarProps {
   sparse: boolean;
   drawerOpen: boolean;
-  handleDrawerOpen: ()=> void;
+  handleDrawerOpen: () => void;
 }
 const TopBar: FunctionComponent<TopBarProps> = ({ sparse, drawerOpen, handleDrawerOpen }) => {
   const [
@@ -50,18 +59,10 @@ const TopBar: FunctionComponent<TopBarProps> = ({ sparse, drawerOpen, handleDraw
   const { darkMode, setDarkMode } = usePersistentAppStore();
   const { reset } = useCoingeckoStore();
 
-  const toggleSecretsModal = () => {
-    setShowSecretsModal(!showSecretsModal);
-  };
-  const toggleAboutModal = () => {
-    setShowAboutModal(!showAboutModal);
-  };
-  const toggleDarkMode = () => setDarkMode(!darkMode);
-
   return (
     <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
       <Toolbar>
-        <IconButton 
+        <IconButton
           color="inherit"
           aria-label="open drawer"
           onClick={handleDrawerOpen}
@@ -71,8 +72,8 @@ const TopBar: FunctionComponent<TopBarProps> = ({ sparse, drawerOpen, handleDraw
             ...(drawerOpen && { display: 'none' }),
           }}
         >
-          <Menu size={25}/>
-        </IconButton> 
+          <Menu size={25} />
+        </IconButton>
 
         <Typography variant="h5" noWrap sx={{ flexGrow: 1 }}>
           {APPNAME}
@@ -102,18 +103,18 @@ const TopBar: FunctionComponent<TopBarProps> = ({ sparse, drawerOpen, handleDraw
               </Box>
             </Tooltip>
             <Tooltip title={'Secrets Manager'}>
-              <Box onClick={toggleSecretsModal}>
+              <Box onClick={() => setShowSecretsModal(!showSecretsModal)}>
                 <UploadCloud />
               </Box>
             </Tooltip>
             <Tooltip title={'About'}>
-              <Box onClick={toggleAboutModal}>
+              <Box onClick={() => setShowAboutModal(!showAboutModal)}>
                 <HelpCircle />
               </Box>
             </Tooltip>
             {false && (
               <Tooltip title={`switch to ${darkMode ? 'Light' : 'Dark'} mode`}>
-                <Box onClick={toggleDarkMode}>{darkMode ? <Moon /> : <Sun />}</Box>
+                <Box onClick={() => setDarkMode(!darkMode)}>{darkMode ? <Moon /> : <Sun />}</Box>
               </Tooltip>
             )}
             <Tooltip title={isLoading ? 'loading...' : 'Ready'}>

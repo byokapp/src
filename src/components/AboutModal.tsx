@@ -1,4 +1,5 @@
 import { FunctionComponent } from 'preact';
+import { ExternalLink as ExternalLinkIcon } from 'preact-feather';
 import {
   Avatar,
   Dialog,
@@ -11,11 +12,12 @@ import {
   ListItemText,
   Tooltip,
 } from '@mui/material';
-import { ExternalLink as ExternalLinkIcon, Twitter } from 'preact-feather';
+
 import { APPNAME, CG_STATIC, ENS_IMAGE, SAFE_ICON } from '@/constants';
-import ExternalLink from './ExternalLink';
-import { Chain } from '@/types';
 import { shortenHash } from '@/logic';
+import { Chain } from '@/types';
+
+import ExternalLink from './ExternalLink';
 
 const ARB1_SAFE = '0x98b98cfF697A5Fe7cc250Beb26d89B2dE0cE054F';
 

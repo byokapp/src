@@ -4,16 +4,14 @@ import { shallow } from 'zustand/shallow';
 
 import { PageStyle } from '@/config';
 import { SUPPORTED_CHAINS } from '@/constants';
+import { useAlchemyStore } from '@/hooks/useAlchemy';
+import PageLayout from '@/layout/PageLayout';
+import { usePersistentAppStore } from '@/stores/persistentAppState';
+import { useBoundStore } from '@/stores/useBoundStore';
 
 import AboutModal from '@/components/AboutModal';
 import SecretsModal from '@/components/SecretsModal';
 import WalletModal from '@/components/WalletModal';
-
-import PageLayout from '@/layout/PageLayout';
-
-import { useAlchemyStore } from '@/hooks/useAlchemy';
-import { usePersistentAppStore } from '@/stores/persistentAppState';
-import { useBoundStore } from '@/stores/useBoundStore';
 
 const Home: FunctionComponent = () => {
   const [
@@ -55,27 +53,23 @@ const Home: FunctionComponent = () => {
     }
   }, [showWalletModal]);
 
-  const toggleAboutModal = () => {
-    setShowAboutModal(!showAboutModal);
-  };
-  const toggleSecretsModal = () => {
-    setShowSecretsModal(!showSecretsModal);
-  };
-  const toggleWalletModal = () => {
-    setShowWalletModal(!showWalletModal);
-  };
-
   return (
     <>
       <PageLayout layoutStyle={PageStyle.MAIN} />
-      <AboutModal showModal={showAboutModal} toggleModal={toggleAboutModal} />
+      <AboutModal
+        showModal={showAboutModal}
+        toggleModal={() => setShowAboutModal(!showAboutModal)}
+      />
       <WalletModal
         showModal={showWalletModal}
         dataToEdit={walletInputs}
-        toggleModal={toggleWalletModal}
+        toggleModal={() => setShowWalletModal(!showWalletModal)}
         dispatch={walletDispatch}
       />
-      <SecretsModal showModal={showSecretsModal} toggleModal={toggleSecretsModal} />
+      <SecretsModal
+        showModal={showSecretsModal}
+        toggleModal={() => setShowSecretsModal(!showSecretsModal)}
+      />
     </>
   );
 };

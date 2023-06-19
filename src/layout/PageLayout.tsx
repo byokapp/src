@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'preact';
 import { useState } from 'preact/hooks';
 import { ChevronLeft } from 'preact-feather';
-import { Box, CssBaseline, Divider, Drawer, IconButton, Toolbar, styled, useTheme } from '@mui/material';
+import { Box, CssBaseline, Divider, Drawer, IconButton, Toolbar, styled } from '@mui/material';
 
 import { PageStyle, drawerWidth } from '@/config';
 
@@ -24,21 +24,18 @@ interface PageLayoutProps {
   layoutStyle: PageStyle;
 }
 const PageLayout: FunctionComponent<PageLayoutProps> = ({ layoutStyle }) => {
-  const theme = useTheme();
-  const [open, setOpen] = useState(true);
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+  const width =
+    window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+  const [open, setOpen] = useState(width > 767);
 
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <TopBar sparse={layoutStyle !== PageStyle.MAIN} drawerOpen={open} handleDrawerOpen={handleDrawerOpen} />
+      <TopBar
+        sparse={layoutStyle !== PageStyle.MAIN}
+        drawerOpen={open}
+        handleDrawerOpen={() => setOpen(true)}
+      />
       <Drawer
         variant="persistent"
         open={open}
@@ -54,8 +51,8 @@ const PageLayout: FunctionComponent<PageLayoutProps> = ({ layoutStyle }) => {
         </Box>
         <Divider />
         <DrawerControls>
-          <IconButton  onClick={() => {console.log("here", open);handleDrawerClose()}}>
-            <ChevronLeft size={25}/>
+          <IconButton onClick={() => setOpen(false)}>
+            <ChevronLeft size={25} />
           </IconButton>
         </DrawerControls>
       </Drawer>

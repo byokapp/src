@@ -30,18 +30,11 @@ const SideBar: FunctionComponent<SideBarProps> = () => {
     ]);
   const { wallets, walletDispatch: dispatch } = usePersistentAppStore();
 
-  const toggleWalletModal = () => {
-    setShowWalletModal(!showWalletModal);
-  };
-
+  const toggleWalletModal = () => setShowWalletModal(!showWalletModal);
   const handleAdd = (walletName?: string, walletAddress?: string) => {
     setWalletInputs(
       walletName || walletAddress
-        ? {
-            id: undefined,
-            walletName: walletName ?? '',
-            walletAddress: walletAddress ?? '',
-          }
+        ? { id: undefined, walletName: walletName ?? '', walletAddress: walletAddress ?? '' }
         : undefined,
     );
     toggleWalletModal();

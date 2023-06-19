@@ -1,18 +1,20 @@
 import { FunctionComponent } from 'preact';
+import { useEffect } from 'preact/hooks';
+import { Box } from '@mui/material';
+
+import { CG_STATIC } from '@/constants';
+import { useAlchemyStore } from '@/hooks/useAlchemy';
+import { useCoingeckoStore } from '@/hooks/useCoinGecko';
+import { useCoingeckoPricesStore } from '@/hooks/useCoinGeckoPrices';
+import { useEtherscanStore } from '@/hooks/useEtherscan';
+import { usePersistentAppStore } from '@/stores/persistentAppState';
+import { useBoundStore } from '@/stores/useBoundStore';
+import { ChainAddress } from '@/types';
+
+import Introduction from '@/components/Introduction';
 import Balances from '@/components/Balances';
 import Welcome from '@/components/Welcome';
-import { useCoingeckoStore } from '@/hooks/useCoinGecko';
-import { ChainAddress } from '@/types';
-import { Box } from '@mui/material';
-import { useBoundStore } from '@/stores/useBoundStore';
 import MissingSecretsWarning from '@/components/MissingSecretsWarning';
-import { usePersistentAppStore } from '@/stores/persistentAppState';
-import Introduction from '@/components/Introduction';
-import { useEffect } from 'preact/hooks';
-import { useAlchemyStore } from '@/hooks/useAlchemy';
-import { useEtherscanStore } from '@/hooks/useEtherscan';
-import { CG_STATIC } from '@/constants';
-import { useCoingeckoPricesStore } from '@/hooks/useCoinGeckoPrices';
 
 const MainView: FunctionComponent = () => {
   const wallets = usePersistentAppStore((state) => state.wallets);
