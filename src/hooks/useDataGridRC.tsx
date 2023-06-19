@@ -1,16 +1,16 @@
-import moment from 'moment';
 import { Link, Link2 } from 'preact-feather';
 import { GridColDef, GridRenderCellParams, GridValueFormatterParams } from '@mui/x-data-grid';
+import moment from 'moment';
+
+import { CG_STATIC, DATETIME_FORMAT, zeroString } from '@/constants';
+import { getLatestPrice } from '@/hooks/useCoinGeckoPrices';
+import { EtherscanTxListGenericResponse } from '@/hooks/useEtherscan';
+import { useTokensOnPlatform } from '@/hooks/useTokensOnPlatform';
+import { commifyNumberString, contractEquals, shortenHash } from '@/logic';
+import { BalanceHistory, Chain, ChainAddress, Erc20ContractDetail } from '@/types';
 
 import ExternalLink from '@/components/ExternalLink';
 import BalanceItem from '@/components/BalanceItem';
-
-import { CG_STATIC, DATETIME_FORMAT, zeroString } from '@/constants';
-import { commifyNumberString, contractEquals, shortenHash } from '@/logic';
-import { BalanceHistory, ChainAddress, Erc20ContractDetail } from '@/types';
-import { getLatestPrice } from '@/hooks/useCoinGeckoPrices';
-import { useTokensOnPlatform } from '@/hooks/useTokensOnPlatform';
-import { EtherscanTxListGenericResponse } from '@/hooks/useEtherscan';
 
 export const useDataGridRC = (
   chainAddress: ChainAddress,
@@ -18,8 +18,10 @@ export const useDataGridRC = (
   txns: EtherscanTxListGenericResponse[],
   balanceHistory: BalanceHistory[],
 ) => {
-  const { chain } = chainAddress;
   const tokensOnPlatform = useTokensOnPlatform();
+
+  const { chain } = chainAddress;
+  const etherscanBaseUrl = CG_STATIC[chain].etherscan;
 
   const columns: GridColDef[] = [
     { field: 'blockNumber', headerName: 'BlockNumber', width: 130, editable: false },
@@ -61,11 +63,11 @@ export const useDataGridRC = (
       description: 'external ethtx.info link (not sortable)',
       editable: false,
       renderCell: ({ value }) => {
-        return (
+        return value ? (
           <ExternalLink href={value}>
             <Link2 />
           </ExternalLink>
-        );
+        ) : undefined;
       },
     },
     {
@@ -149,8 +151,8 @@ export const useDataGridRC = (
       blockNumber: commifyNumberString(blockNumber, 0),
       timestamp: timestampStr,
       txnHash: hash,
-      etherscanLink: `https://etherscan.io/tx/${hash}`,
-      ethtxInfoLink: `https://ethtx.info/mainnet/${hash}/`,
+      etherscanLink: `${etherscanBaseUrl}/tx/${hash}`,
+      ethtxInfoLink: chain === Chain.ETH ? `https://ethtx.info/mainnet/${hash}/` : undefined,
       [CG_STATIC[chain].symbol]: (
         <BalanceItem
           balanceUsd={balanceUsd}

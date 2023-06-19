@@ -2,8 +2,10 @@ import { formatUnits } from 'ethers';
 import { mapEntries } from 'radash';
 import moment from 'moment';
 
-import { CG_STATIC, DISPLAY_CENTS, VERBOSE_API_CALLS, zeroString } from './constants';
+import { CG_STATIC, DISPLAY_CENTS, zeroString } from './constants';
 import { Chain, ChainAddress, Secrets, TimeWindow, numberString } from './types';
+
+const VERBOSE_API_CALLS = true;
 
 export const getTimeWindowLabel = (timeWindow: TimeWindow): string => {
   switch (timeWindow) {

@@ -6,7 +6,6 @@ import { Chain, ChainDetail, SecretsKey, urlString } from './types';
 */
 export const APPNAME = '🗝️BYOK App';
 export const LOCAL_STORAGE_KEY = 'BYOK';
-export const VERBOSE_API_CALLS = true;
 
 export const DATETIME_FORMAT = 'M/D/Y h:mm:ss A'; // moment.js
 export const DISPLAY_CENTS = 2;
@@ -37,7 +36,7 @@ export const CG_STATIC: { [chain in Chain]: ChainDetail } = {
     decimals: 18,
     platform: 'ethereum',
     image: 'https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880',
-    etherscan: 'Etherscan',
+    etherscan: 'https://etherscan.io',
   },
   MATIC: {
     id: 'matic-network',
@@ -47,7 +46,7 @@ export const CG_STATIC: { [chain in Chain]: ChainDetail } = {
     decimals: 18,
     platform: 'polygon-pos',
     image: 'https://assets.coingecko.com/coins/images/4713/large/matic-token-icon.png?1624446912',
-    etherscan: 'Polygonscan',
+    etherscan: 'https://polygonscan.com',
   },
   ARBITRUM: {
     id: 'arbitrum',
@@ -58,7 +57,7 @@ export const CG_STATIC: { [chain in Chain]: ChainDetail } = {
     platform: 'arbitrum-one',
     image:
       'https://assets.coingecko.com/coins/images/16547/large/photo_2023-03-29_21.47.00.jpeg?1680097630',
-    etherscan: 'Arbiscan',
+    etherscan: 'https://arbiscan.io',
   },
   OPTIMISM: {
     id: 'optimism',
@@ -68,7 +67,7 @@ export const CG_STATIC: { [chain in Chain]: ChainDetail } = {
     decimals: 18,
     platform: 'optimistic-ethereum',
     image: 'https://assets.coingecko.com/coins/images/25244/large/Optimism.png?1660904599',
-    etherscan: 'Optimistic Etherscan',
+    etherscan: 'https://optimistic.etherscan.io',
   },
 };
 

@@ -3,19 +3,17 @@ import { DataGrid, GridToolbarContainer, GridToolbarExport } from '@mui/x-data-g
 import { Box, Typography } from '@mui/material';
 
 import { chainAddressEquals } from '@/logic';
-import { ChainAddress, Erc20ContractDetail } from '@/types';
 import { useAlchemyStore } from '@/hooks/useAlchemy';
-import { useEtherscanStore } from '@/hooks/useEtherscan';
-import { useErc20Contracts } from '@/hooks/useErc20Contracts';
 import { useDataGridRC } from '@/hooks/useDataGridRC';
+import { useErc20Contracts } from '@/hooks/useErc20Contracts';
+import { useEtherscanStore } from '@/hooks/useEtherscan';
+import { ChainAddress } from '@/types';
 
-const GridToolbar = () => {
-  return (
-    <GridToolbarContainer>
-      <GridToolbarExport />
-    </GridToolbarContainer>
-  );
-};
+const GridToolbar = () => (
+  <GridToolbarContainer>
+    <GridToolbarExport />
+  </GridToolbarContainer>
+);
 
 interface TransactionListProps {
   chainAddress: ChainAddress;

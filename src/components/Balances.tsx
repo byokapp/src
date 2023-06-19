@@ -3,21 +3,20 @@ import { useEffect } from 'preact/hooks';
 import { sort, unique } from 'radash';
 import { Box, Divider, Stack, Typography } from '@mui/material';
 
-import BalanceItem from './BalanceItem';
-import TokenItem from './TokenItem';
-import TransactionList from './TransactionList';
-import TripleChart from './TripleChart';
-
 import { CG_STATIC, coinGeckoAttribution, zeroString } from '@/constants';
-import { chainAddressEquals } from '@/logic';
-import { ChainAddress } from '@/types';
-
 import { useAlchemyStore } from '@/hooks/useAlchemy';
 import { useCoingeckoStore } from '@/hooks/useCoinGecko';
 import { getLatestPrice } from '@/hooks/useCoinGeckoPrices';
-import { useEtherscanStore } from '@/hooks/useEtherscan';
 import { useErc20Contracts } from '@/hooks/useErc20Contracts';
+import { useEtherscanStore } from '@/hooks/useEtherscan';
+import { chainAddressEquals } from '@/logic';
 import { usePersistentBalancesStore } from '@/stores/persistentBalancesState';
+import { ChainAddress } from '@/types';
+
+import BalanceItem from '@/components/BalanceItem';
+import TokenItem from '@/components/TokenItem';
+import TransactionList from '@/components/TransactionList';
+import TripleChart from '@/components/TripleChart';
 
 interface BalancesProps {
   chainAddress: ChainAddress | undefined;
@@ -83,7 +82,7 @@ const Balances: FunctionComponent<BalancesProps> = ({ chainAddress }) => {
     balancesReducer({
       chainAddress,
       timestamp: currentBalance?.timestamp ?? Date.now(),
-      nativeBalance,
+      nativeBalance: nativeBalance ?? zeroString(),
       nativeBalanceUsd,
       erc20: tokensBalance,
     });
