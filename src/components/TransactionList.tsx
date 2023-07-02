@@ -8,6 +8,7 @@ import { useDataGridRC } from '@/hooks/useDataGridRC';
 import { useErc20Contracts } from '@/hooks/useErc20Contracts';
 import { useEtherscanStore } from '@/hooks/useEtherscan';
 import { ChainAddress } from '@/types';
+import { responsiveTableWidth } from '@/uiLogic';
 
 const GridToolbar = () => (
   <GridToolbarContainer>
@@ -31,10 +32,11 @@ const TransactionList: FunctionComponent<TransactionListProps> = ({ chainAddress
 
   const { rows, columns } = useDataGridRC(chainAddress, erc20Contracts, txns, balanceHistory);
 
+  const width = responsiveTableWidth();
   return (
     <Box sx={{ height: '100%', width: '100%' }}>
       <Typography variant="h6">Transactions List</Typography>
-      <Box sx={{ height: 400, width: 900 }}>
+      <Box sx={{ height: 400, width }}>
         <DataGrid
           rows={rows}
           columns={columns}

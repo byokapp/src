@@ -5,9 +5,10 @@ import { Box, Divider, Stack, ToggleButton, ToggleButtonGroup } from '@mui/mater
 
 import LineChart from './LineChart';
 
-import { CG_STATIC, zeroString } from '@/constants';
+import { CG_STATIC } from '@/constants';
 import { chainAddressEquals, getStartAndEndTimestamps, getTimeWindowLabel } from '@/logic';
 import { Asset, ChainAddress, TimeWindow } from '@/types';
+import { responsiveChartsWidth } from '@/uiLogic';
 
 import { useAlchemyStore } from '@/hooks/useAlchemy';
 import { Price, useCoingeckoPricesStore } from '@/hooks/useCoinGeckoPrices';
@@ -124,16 +125,17 @@ const TripleChart: FunctionComponent<TripleChartProps> = ({ chainAddress }) => {
     }),
   ];
 
+  const width = responsiveChartsWidth();
   return (
     <Box
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        width: '1140px',
         alignItems: 'left',
         '& > *': {
           m: 1,
         },
+        width,
       }}
     >
       <Box display="flex" justifyContent="flex-end">

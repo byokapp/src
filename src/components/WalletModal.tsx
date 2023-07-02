@@ -8,8 +8,6 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  useTheme,
-  useMediaQuery,
 } from '@mui/material';
 
 import { WalletsAction } from '@/reducers/walletsReducer';
@@ -17,6 +15,7 @@ import { useBoundStore } from '@/stores/useBoundStore';
 import { Wallet } from '@/types';
 import { usePersistentAppStore } from '@/stores/persistentAppState';
 import { X } from 'preact-feather';
+import { isSmallScreen } from '@/uiLogic';
 
 interface WalletModalProps {
   showModal: boolean;
@@ -91,9 +90,7 @@ const WalletModal: FunctionComponent<WalletModalProps> = ({
     toggleModal();
   };
 
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-
+  const fullScreen = isSmallScreen();
   return (
     <Dialog fullScreen={fullScreen} open={showModal} onClose={toggleModal}>
       <form spellCheck={false} onSubmit={handleOnClick}>

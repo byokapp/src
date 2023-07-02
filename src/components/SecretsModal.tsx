@@ -13,12 +13,11 @@ import {
   IconButton,
   Divider,
   Tooltip,
-  useMediaQuery,
-  useTheme,
 } from '@mui/material';
 
 import { SECRETS_KEYS } from '@/constants';
 import { usePersistentAppStore } from '@/stores/persistentAppState';
+import { isSmallScreen } from '@/uiLogic';
 
 interface SecretsModalProps {
   showModal: boolean;
@@ -45,9 +44,7 @@ const SecretsModal: FunctionComponent<SecretsModalProps> = ({ toggleModal, showM
     setErrorMsg(undefined);
   }
 
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-
+  const fullScreen = isSmallScreen();
   return (
     <Dialog fullScreen={fullScreen} open={showModal} onClose={toggleModal}>
       <DialogTitle>
