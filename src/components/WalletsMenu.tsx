@@ -1,8 +1,8 @@
 import { FunctionComponent } from 'preact';
 import { useState } from 'preact/hooks';
-import { Box, Divider, ListItem, Menu, MenuItem, Tooltip } from '@mui/material';
+import { CreditCard } from 'preact-feather';
+import { Badge, Box, Divider, ListItem, Menu, MenuItem, Tooltip } from '@mui/material';
 
-import { useBoundStore } from '@/stores/useBoundStore';
 import { usePersistentAppStore } from '@/stores/persistentAppState';
 import { Wallet } from '@/types';
 import { shortenHash } from '@/logic';
@@ -13,7 +13,6 @@ const getWalletId = (wallet: Wallet | undefined): string =>
 const WalletsMenu: FunctionComponent = () => {
   const { wallets, activeWalletId, setActiveWalletId } = usePersistentAppStore();
   const activeWallet = wallets.find((w) => w.id === activeWalletId);
-  if (!activeWallet) return null;
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -31,20 +30,41 @@ const WalletsMenu: FunctionComponent = () => {
 
   return (
     <>
-      <Tooltip title={shortenHash(activeWallet.walletAddress)}>
-        {wallets.length > 1 ? (
+      {activeWallet ? (
+        <Tooltip title={shortenHash(activeWallet.walletAddress)}>
+          {wallets.length > 1 ? (
+            <Box
+              onClick={handleClick}
+              aria-controls={open ? 'wallets-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? 'true' : undefined}
+            >
+              {activeWallet.walletName}
+            </Box>
+          ) : (
+            <Box>{activeWallet.walletName}</Box>
+          )}
+        </Tooltip>
+      ) : (
+        <Tooltip title="Select Wallet">
           <Box
             onClick={handleClick}
             aria-controls={open ? 'wallets-menu' : undefined}
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            {activeWallet.walletName}
+            <Badge
+              color="info"
+              badgeContent={wallets.length}
+              invisible={wallets.length < 2}
+              max={10}
+              anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+            >
+              <CreditCard />
+            </Badge>
           </Box>
-        ) : (
-          <Box>{activeWallet.walletName}</Box>
-        )}
-      </Tooltip>
+        </Tooltip>
+      )}
       <Menu
         anchorEl={anchorEl}
         id="wallets-menu"
@@ -81,7 +101,7 @@ const WalletsMenu: FunctionComponent = () => {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         {wallets
-          .filter((wallet) => wallet.id !== activeWallet.id)
+          .filter((wallet) => (activeWalletId ? wallet.id !== activeWalletId : true))
           .map((wallet) => (
             <Tooltip title={shortenHash(wallet.walletAddress)}>
               <MenuItem onClick={handleClose} id={getWalletId(wallet)}>
@@ -89,8 +109,12 @@ const WalletsMenu: FunctionComponent = () => {
               </MenuItem>
             </Tooltip>
           ))}
-        <Divider />
-        <ListItem>switch Wallet</ListItem>
+        {activeWallet ? (
+          <>
+            <Divider />
+            <ListItem>switch Wallet 💳</ListItem>
+          </>
+        ) : undefined}
       </Menu>
     </>
   );

@@ -30,7 +30,7 @@ const AboutModal: FunctionComponent<AboutModalProps> = ({ toggleModal, showModal
     <Dialog open={showModal} onClose={toggleModal}>
       <DialogTitle>{APPNAME}</DialogTitle>
       <DialogContent>
-        <DialogContentText>v0.9 May 2023</DialogContentText>
+        <DialogContentText>v0.91 July 2023</DialogContentText>
         <List dense={false}>
           <ListItem disablePadding>
             <ListItemText

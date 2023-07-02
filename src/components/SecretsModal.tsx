@@ -51,7 +51,12 @@ const SecretsModal: FunctionComponent<SecretsModalProps> = ({ toggleModal, showM
         <X onClick={toggleModal} color="grey" /> Secrets Manager 🌩️
       </DialogTitle>
       <DialogContent>
-        <DialogContentText>API private keys—only ever stored in your own browser</DialogContentText>
+        <DialogContentText>
+          API private keys—never stored on our server (there is no server)
+        </DialogContentText>
+        <DialogContentText>
+          only ever stored in your own browser, and sent over HTTPS
+        </DialogContentText>
         {SECRETS_KEYS.map((key, index) => (
           <TextField
             autoFocus

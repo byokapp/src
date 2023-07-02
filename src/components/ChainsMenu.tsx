@@ -79,7 +79,7 @@ const ChainsMenu: FunctionComponent = () => {
           </MenuItem>
         ))}
         <Divider />
-        <ListItem>switch Chain</ListItem>
+        <ListItem>🖇️ switch Chain</ListItem>
       </Menu>
     </>
   );

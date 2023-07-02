@@ -46,7 +46,8 @@ const TopBar: FunctionComponent<TopBarProps> = ({ sparse, handleDrawerToggle }) 
       ],
       shallow,
     );
-  const { activeWalletId, setActiveWalletId, darkMode, setDarkMode } = usePersistentAppStore();
+  const { wallets, activeWalletId, setActiveWalletId, darkMode, setDarkMode } =
+    usePersistentAppStore();
   const { reset } = useCoingeckoStore();
 
   return (
@@ -68,22 +69,31 @@ const TopBar: FunctionComponent<TopBarProps> = ({ sparse, handleDrawerToggle }) 
 
         {!sparse && (
           <Stack direction="row" spacing={1.5}>
+            {wallets.length > 0 ? (
+              <>
+                <Stack direction="row" spacing={2}>
+                  {activeWalletId ? (
+                    <>
+                      <WalletsMenu />
+                      <ChainsMenu />
+                    </>
+                  ) : (
+                    <>
+                      <ChainsMenu />
+                      <WalletsMenu />
+                    </>
+                  )}
+                </Stack>
+                <Divider orientation="vertical" flexItem />
+              </>
+            ) : undefined}
             {activeWalletId ? (
-              <Stack
-                direction="row"
-                divider={<Divider orientation="vertical" flexItem />}
-                spacing={2}
-              >
-                <WalletsMenu />
-                <ChainsMenu />
-                <Tooltip title={'Clear Selection'}>
-                  <Box onClick={() => setActiveWalletId(undefined)}>
-                    <Maximize />
-                  </Box>
-                </Tooltip>
-                <Box> </Box>
-              </Stack>
-            ) : null}
+              <Tooltip title={'Clear Selection'}>
+                <Box onClick={() => setActiveWalletId(undefined)}>
+                  <Maximize />
+                </Box>
+              </Tooltip>
+            ) : undefined}
             <Tooltip title={'Refresh Token Metadata'}>
               <Box onClick={reset}>
                 <RefreshCcw />
@@ -94,19 +104,21 @@ const TopBar: FunctionComponent<TopBarProps> = ({ sparse, handleDrawerToggle }) 
                 <UploadCloud />
               </Box>
             </Tooltip>
+            {false && (
+              <Tooltip title={`switch to ${darkMode ? 'Light' : 'Dark'} mode`}>
+                <Box onClick={() => setDarkMode(!darkMode)}>{darkMode ? <Moon /> : <Sun />}</Box>
+              </Tooltip>
+            )}
             <Tooltip title={'About'}>
               <Box onClick={() => setShowAboutModal(!showAboutModal)}>
                 <HelpCircle />
               </Box>
             </Tooltip>
             {false && (
-              <Tooltip title={`switch to ${darkMode ? 'Light' : 'Dark'} mode`}>
-                <Box onClick={() => setDarkMode(!darkMode)}>{darkMode ? <Moon /> : <Sun />}</Box>
+              <Tooltip title={isLoading ? 'loading...' : 'Ready'}>
+                <Box>{isLoading ? <Loader /> : <Activity />}</Box>
               </Tooltip>
             )}
-            <Tooltip title={isLoading ? 'loading...' : 'Ready'}>
-              <Box>{isLoading ? <Loader /> : <Activity />}</Box>
-            </Tooltip>
           </Stack>
         )}
       </Toolbar>

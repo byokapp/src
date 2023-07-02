@@ -12,7 +12,6 @@ import {
 } from '@mui/material';
 
 import ChainList from '@/components/ChainList';
-import WalletAction from '@/components/WalletAction';
 import WalletList from '@/components/WalletList';
 
 import { SUPPORTED_CHAINS } from '@/constants';
@@ -34,29 +33,19 @@ const SideBar: FunctionComponent<SideBarProps> = () => {
   } = usePersistentAppStore();
   const activeWallet = wallets.find((w) => w.id === activeWalletId);
 
-  const toggleWalletModal = () => setShowWalletModal(!showWalletModal);
-  const handleAdd = (walletName?: string, walletAddress?: string) => {
-    setWalletInputs(
-      walletName || walletAddress
-        ? { id: undefined, walletName: walletName ?? '', walletAddress: walletAddress ?? '' }
-        : undefined,
-    );
-    toggleWalletModal();
-  };
   const handleEdit = (id: number) => {
     setWalletInputs(wallets.find((wallet) => wallet.id === id));
-    toggleWalletModal();
+    setShowWalletModal(!showWalletModal);
   };
 
   return (
     <>
       <List dense={false}>
         <ListItem>
-          <ListItemText primary={'Wallets'} secondary={'EOA/Smart Contract addresses'} />
+          <ListItemText primary={'💳Wallets'} secondary={'EOA/Smart Contract addresses'} />
         </ListItem>
       </List>
       <WalletList wallets={wallets} handleEdit={handleEdit} dispatch={dispatch} />
-      {wallets.length === 0 ? undefined : <WalletAction handleAdd={handleAdd} />}
       <Divider />
       <List dense={false}>
         <ListItem
@@ -79,7 +68,7 @@ const SideBar: FunctionComponent<SideBarProps> = () => {
           }
         >
           <ListItemText
-            primary={[activeWallet?.walletName, 'Chains'].join(' ')}
+            primary={['🖇️', activeWallet?.walletName, 'Chains'].join(' ')}
             secondary={'EVM L1/L2'}
           />
         </ListItem>
