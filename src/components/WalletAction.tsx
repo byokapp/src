@@ -1,8 +1,11 @@
 import { FunctionComponent } from 'preact';
-import { IconButton, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
 import { PlusSquare } from 'preact-feather';
-import { useBoundStore } from '@/stores/useBoundStore';
+import { IconButton, List, ListItem } from '@mui/material';
+
 import EnsForm from '@/components/EnsForm';
+
+import { drawerWidth } from '@/config';
+import { useBoundStore } from '@/stores/useBoundStore';
 
 interface WalletActionProps {
   handleAdd: (walletName?: string, walletAddress?: string) => void;
@@ -13,8 +16,10 @@ const WalletAction: FunctionComponent<WalletActionProps> = ({ handleAdd }) => {
     ensAddress: state.ensAddress,
   }));
 
+  const plusButton = ensAddress ? <PlusSquare color="#1565C0" /> : undefined;
+
   return (
-    <List dense={true}>
+    <List dense={true} sx={{ width: drawerWidth - 20 }}>
       <ListItem
         key={'<Add Wallet>'}
         secondaryAction={
@@ -23,7 +28,7 @@ const WalletAction: FunctionComponent<WalletActionProps> = ({ handleAdd }) => {
             aria-label="edit"
             onClick={() => handleAdd(ensName, ensAddress ?? undefined)}
           >
-            <PlusSquare />
+            {plusButton}
           </IconButton>
         }
       >

@@ -7,7 +7,7 @@ import { contractEquals, dollarify } from '@/logic';
 import { Wallet } from '@/types';
 import { WalletsAction } from '@/reducers/walletsReducer';
 import { usePersistentBalancesStore } from '@/stores/persistentBalancesState';
-import { useBoundStore } from '@/stores/useBoundStore';
+import { usePersistentAppStore } from '@/stores/persistentAppState';
 
 interface WalletListProps {
   wallets: Wallet[];
@@ -15,7 +15,7 @@ interface WalletListProps {
   dispatch: (action: WalletsAction) => void;
 }
 const WalletList: FunctionComponent<WalletListProps> = ({ wallets, handleEdit, dispatch }) => {
-  const setActiveWallet = useBoundStore((state) => state.setActiveWallet);
+  const { setActiveWalletId } = usePersistentAppStore();
   const [balances, totalBalanceReducer] = usePersistentBalancesStore((state) => [
     state.balances,
     state.totalBalanceReducer,
@@ -64,7 +64,7 @@ const WalletList: FunctionComponent<WalletListProps> = ({ wallets, handleEdit, d
               </>
             }
           >
-            <ListItemButton onClick={() => setActiveWallet(wallet)}>
+            <ListItemButton onClick={() => setActiveWalletId(wallet.id)}>
               <ListItemText
                 primary={walletName}
                 secondary={dollarify(sumNativeBalanceUsd(wallet))}

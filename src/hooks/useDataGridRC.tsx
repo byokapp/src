@@ -21,7 +21,7 @@ export const useDataGridRC = (
   const tokensOnPlatform = useTokensOnPlatform();
 
   const { chain } = chainAddress;
-  const etherscanBaseUrl = CG_STATIC[chain].etherscan;
+  const blockscanBaseUrl = CG_STATIC[chain].blockscanUrl;
 
   const columns: GridColDef[] = [
     { field: 'blockNumber', headerName: 'BlockNumber', width: 130, editable: false },
@@ -41,7 +41,7 @@ export const useDataGridRC = (
       renderCell: (params: GridRenderCellParams) => params.value,
     })),
     {
-      field: 'etherscanLink',
+      field: 'blockscanLink',
       headerName: 'Etherscan',
       width: 90,
       sortable: false,
@@ -151,7 +151,7 @@ export const useDataGridRC = (
       blockNumber: commifyNumberString(blockNumber, 0),
       timestamp: timestampStr,
       txnHash: hash,
-      etherscanLink: `${etherscanBaseUrl}/tx/${hash}`,
+      blockscanLink: `${blockscanBaseUrl}/tx/${hash}`,
       ethtxInfoLink: chain === Chain.ETH ? `https://ethtx.info/mainnet/${hash}/` : undefined,
       [CG_STATIC[chain].symbol]: (
         <BalanceItem

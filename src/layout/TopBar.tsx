@@ -32,31 +32,21 @@ import ChainsMenu from '@/components/ChainsMenu';
 
 interface TopBarProps {
   sparse: boolean;
-  drawerOpen: boolean;
-  handleDrawerOpen: () => void;
+  handleDrawerToggle: () => void;
 }
-const TopBar: FunctionComponent<TopBarProps> = ({ sparse, drawerOpen, handleDrawerOpen }) => {
-  const [
-    isLoading,
-    activeWallet,
-    setActiveWallet,
-    showAboutModal,
-    setShowAboutModal,
-    showSecretsModal,
-    setShowSecretsModal,
-  ] = useBoundStore(
-    (state) => [
-      state.isLoading,
-      state.activeWallet,
-      state.setActiveWallet,
-      state.showAboutModal,
-      state.setShowAboutModal,
-      state.showSecretsModal,
-      state.setShowSecretsModal,
-    ],
-    shallow,
-  );
-  const { darkMode, setDarkMode } = usePersistentAppStore();
+const TopBar: FunctionComponent<TopBarProps> = ({ sparse, handleDrawerToggle }) => {
+  const [isLoading, showAboutModal, setShowAboutModal, showSecretsModal, setShowSecretsModal] =
+    useBoundStore(
+      (state) => [
+        state.isLoading,
+        state.showAboutModal,
+        state.setShowAboutModal,
+        state.showSecretsModal,
+        state.setShowSecretsModal,
+      ],
+      shallow,
+    );
+  const { activeWalletId, setActiveWalletId, darkMode, setDarkMode } = usePersistentAppStore();
   const { reset } = useCoingeckoStore();
 
   return (
@@ -64,13 +54,10 @@ const TopBar: FunctionComponent<TopBarProps> = ({ sparse, drawerOpen, handleDraw
       <Toolbar>
         <IconButton
           color="inherit"
-          aria-label="open drawer"
-          onClick={handleDrawerOpen}
+          aria-label="toggle drawer"
+          onClick={handleDrawerToggle}
           edge="start"
-          sx={{
-            marginRight: 5,
-            ...(drawerOpen && { display: 'none' }),
-          }}
+          sx={{ marginRight: 5 }}
         >
           <Menu size={25} />
         </IconButton>
@@ -81,7 +68,7 @@ const TopBar: FunctionComponent<TopBarProps> = ({ sparse, drawerOpen, handleDraw
 
         {!sparse && (
           <Stack direction="row" spacing={1.5}>
-            {activeWallet ? (
+            {activeWalletId ? (
               <Stack
                 direction="row"
                 divider={<Divider orientation="vertical" flexItem />}
@@ -90,7 +77,7 @@ const TopBar: FunctionComponent<TopBarProps> = ({ sparse, drawerOpen, handleDraw
                 <WalletsMenu />
                 <ChainsMenu />
                 <Tooltip title={'Clear Selection'}>
-                  <Box onClick={() => setActiveWallet(undefined)}>
+                  <Box onClick={() => setActiveWalletId(undefined)}>
                     <Maximize />
                   </Box>
                 </Tooltip>

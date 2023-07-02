@@ -1,4 +1,5 @@
 import { FunctionComponent } from 'preact';
+import { useEffect, useState } from 'preact/hooks';
 import {
   Button,
   TextField,
@@ -8,9 +9,11 @@ import {
   DialogContentText,
   DialogTitle,
 } from '@mui/material';
+
 import { WalletsAction } from '@/reducers/walletsReducer';
-import { useEffect, useState } from 'preact/hooks';
+import { useBoundStore } from '@/stores/useBoundStore';
 import { Wallet } from '@/types';
+import { usePersistentAppStore } from '@/stores/persistentAppState';
 
 interface WalletModalProps {
   showModal: boolean;
@@ -26,6 +29,18 @@ const WalletModal: FunctionComponent<WalletModalProps> = ({
 }) => {
   const [walletSkeleton, setWalletSkeleton] = useState({ walletAddress: '', walletName: '' });
   const [errorMsg, setErrorMsg] = useState('');
+
+  const { setActiveWalletId } = usePersistentAppStore();
+  const [setEnsName, setEnsAddress] = useBoundStore((state) => [
+    state.setEnsName,
+    state.setEnsAddress,
+  ]);
+
+  const cleanupAppStateAfterAddingWallet = (newWalletId: number) => {
+    setActiveWalletId(newWalletId);
+    setEnsName('');
+    setEnsAddress(null);
+  };
 
   useEffect(() => {
     setErrorMsg('');
@@ -56,10 +71,11 @@ const WalletModal: FunctionComponent<WalletModalProps> = ({
         type: 'UPDATE_WALLET',
       });
     } else {
+      const newWalletId = Date.now(); // returns current timestamp
       dispatch({
         payload: {
           ...walletSkeleton,
-          id: Date.now(), // returns current timestamp
+          id: newWalletId,
         },
         type: 'ADD_WALLET',
       });
@@ -67,6 +83,7 @@ const WalletModal: FunctionComponent<WalletModalProps> = ({
         walletAddress: '',
         walletName: '',
       });
+      cleanupAppStateAfterAddingWallet(newWalletId);
     }
     toggleModal();
   };

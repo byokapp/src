@@ -6,21 +6,19 @@ import ChainItem from './ChainItem';
 
 import { CG_STATIC } from '@/constants';
 import { chainAddressEquals, dollarify } from '@/logic';
-import { Chain } from '@/types';
 import { usePersistentAppStore } from '@/stores/persistentAppState';
 import { usePersistentBalancesStore } from '@/stores/persistentBalancesState';
 import { useBoundStore } from '@/stores/useBoundStore';
+import { Chain } from '@/types';
 
 interface ChainListProps {
   orderedChainList: Chain[];
 }
 const ChainList: FunctionComponent<ChainListProps> = ({ orderedChainList }) => {
-  const wallets = usePersistentAppStore((state) => state.wallets);
+  const { wallets, activeWalletId } = usePersistentAppStore();
   const balances = usePersistentBalancesStore((state) => state.balances);
-  const [activeWallet, setActiveChain] = useBoundStore((state) => [
-    state.activeWallet,
-    state.setActiveChain,
-  ]);
+  const [setActiveChain] = useBoundStore((state) => [state.setActiveChain]);
+  const activeWallet = wallets.find((w) => w.id === activeWalletId);
 
   const walletAddresses = unique(wallets, (w) => w.walletAddress).map((w) => w.walletAddress);
   const balancesForWallets = balances.filter((balance) =>

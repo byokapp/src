@@ -62,7 +62,8 @@ export interface ChainDetail {
   decimals: number; // for the native asset of this chain
   platform: string; // CoinGecko platform
   image: urlString; // CoinGecko hosted
-  etherscan: urlString;
+  blockscan: string;
+  blockscanUrl: urlString;
 }
 export interface Erc20ContractDetail {
   chain: Chain;

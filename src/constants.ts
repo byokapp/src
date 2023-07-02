@@ -36,7 +36,8 @@ export const CG_STATIC: { [chain in Chain]: ChainDetail } = {
     decimals: 18,
     platform: 'ethereum',
     image: 'https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880',
-    etherscan: 'https://etherscan.io',
+    blockscan: 'Etherscan',
+    blockscanUrl: 'https://etherscan.io',
   },
   MATIC: {
     id: 'matic-network',
@@ -46,7 +47,8 @@ export const CG_STATIC: { [chain in Chain]: ChainDetail } = {
     decimals: 18,
     platform: 'polygon-pos',
     image: 'https://assets.coingecko.com/coins/images/4713/large/matic-token-icon.png?1624446912',
-    etherscan: 'https://polygonscan.com',
+    blockscan: 'PolygonScan',
+    blockscanUrl: 'https://polygonscan.com',
   },
   ARBITRUM: {
     id: 'arbitrum',
@@ -57,7 +59,8 @@ export const CG_STATIC: { [chain in Chain]: ChainDetail } = {
     platform: 'arbitrum-one',
     image:
       'https://assets.coingecko.com/coins/images/16547/large/photo_2023-03-29_21.47.00.jpeg?1680097630',
-    etherscan: 'https://arbiscan.io',
+    blockscan: 'Arbiscan',
+    blockscanUrl: 'https://arbiscan.io',
   },
   OPTIMISM: {
     id: 'optimism',
@@ -67,7 +70,8 @@ export const CG_STATIC: { [chain in Chain]: ChainDetail } = {
     decimals: 18,
     platform: 'optimistic-ethereum',
     image: 'https://assets.coingecko.com/coins/images/25244/large/Optimism.png?1660904599',
-    etherscan: 'https://optimistic.etherscan.io',
+    blockscan: 'Optimistic Etherscan',
+    blockscanUrl: 'https://optimistic.etherscan.io',
   },
 };
 
@@ -79,6 +83,6 @@ export const SAFE_ICON: urlString = 'https://app.safe.global/favicons/favicon.ic
 export const zeroString = () => '0';
 export const coinGeckoAttribution = () => 'Powered by CoinGecko';
 export const missingAlchemyApiKey = () =>
-  'Provide your own Alchemy API key via Secrets Manager 🌩️ (data likely incomplete due to rate-limiting)';
+  'Missing Alchemy API key (data likely incomplete due to rate-limiting)';
 export const missingEtherscanApiKey = (chain: Chain) =>
-  `Provide your own ${CG_STATIC[chain].etherscan} API key via Secrets Manager 🌩️ (data likely incorrect without API key) `;
+  `Missing ${CG_STATIC[chain].blockscan} API key (data likely incorrect without API key) `;

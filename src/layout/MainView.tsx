@@ -17,12 +17,12 @@ import Welcome from '@/components/Welcome';
 import MissingSecretsWarning from '@/components/MissingSecretsWarning';
 
 const MainView: FunctionComponent = () => {
-  const wallets = usePersistentAppStore((state) => state.wallets);
-
-  const { chain, wallet } = useBoundStore((state) => ({
-    chain: state.activeChain,
-    wallet: state.activeWallet,
-  }));
+  const [wallets, walletId] = usePersistentAppStore((state) => [
+    state.wallets,
+    state.activeWalletId,
+  ]);
+  const chain = useBoundStore((state) => state.activeChain);
+  const wallet = wallets.find((w) => w.id === walletId);
 
   const refreshCoinGeckoPrices = useCoingeckoPricesStore((state) => state.refresh);
 
@@ -52,8 +52,8 @@ const MainView: FunctionComponent = () => {
     <Box>
       {wallets.length === 0 ? <Introduction /> : null}
       {selectedChainAddress ? null : <Welcome />}
-      {wallets.length > 0 && selectedChainAddress ? <MissingSecretsWarning /> : null}
       <Balances chainAddress={selectedChainAddress} />
+      {wallets.length > 0 && selectedChainAddress ? <MissingSecretsWarning /> : null}
     </Box>
   );
 };

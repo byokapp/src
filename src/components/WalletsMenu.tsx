@@ -11,13 +11,8 @@ const getWalletId = (wallet: Wallet | undefined): string =>
   wallet && wallet?.id ? wallet.id.toString() : '<missing wallet id';
 
 const WalletsMenu: FunctionComponent = () => {
-  const [activeWallet, setActiveWallet] = useBoundStore((state) => [
-    state.activeWallet,
-    state.setActiveWallet,
-  ]);
-
-  const wallets = usePersistentAppStore((state) => state.wallets);
-
+  const { wallets, activeWalletId, setActiveWalletId } = usePersistentAppStore();
+  const activeWallet = wallets.find((w) => w.id === activeWalletId);
   if (!activeWallet) return null;
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -29,7 +24,7 @@ const WalletsMenu: FunctionComponent = () => {
   const handleClose = (event: React.MouseEvent<HTMLElement>) => {
     const maybeId = event.currentTarget.id;
     const maybeWallet = wallets.find((wallet) => wallet.id === Number(maybeId));
-    if (maybeWallet) setActiveWallet(maybeWallet);
+    if (maybeWallet) setActiveWalletId(maybeWallet.id);
 
     setAnchorEl(null);
   };

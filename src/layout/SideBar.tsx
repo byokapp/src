@@ -14,21 +14,25 @@ import {
 import ChainList from '@/components/ChainList';
 import WalletAction from '@/components/WalletAction';
 import WalletList from '@/components/WalletList';
+
 import { SUPPORTED_CHAINS } from '@/constants';
 import { useBoundStore } from '@/stores/useBoundStore';
 import { usePersistentAppStore } from '@/stores/persistentAppState';
 
 interface SideBarProps {}
 const SideBar: FunctionComponent<SideBarProps> = () => {
-  const [activeWallet, setActiveWallet, setWalletInputs, showWalletModal, setShowWalletModal] =
-    useBoundStore((state) => [
-      state.activeWallet,
-      state.setActiveWallet,
-      state.setWalletInputs,
-      state.showWalletModal,
-      state.setShowWalletModal,
-    ]);
-  const { wallets, walletDispatch: dispatch } = usePersistentAppStore();
+  const [setWalletInputs, showWalletModal, setShowWalletModal] = useBoundStore((state) => [
+    state.setWalletInputs,
+    state.showWalletModal,
+    state.setShowWalletModal,
+  ]);
+  const {
+    wallets,
+    activeWalletId,
+    setActiveWalletId,
+    walletDispatch: dispatch,
+  } = usePersistentAppStore();
+  const activeWallet = wallets.find((w) => w.id === activeWalletId);
 
   const toggleWalletModal = () => setShowWalletModal(!showWalletModal);
   const handleAdd = (walletName?: string, walletAddress?: string) => {
@@ -52,7 +56,7 @@ const SideBar: FunctionComponent<SideBarProps> = () => {
         </ListItem>
       </List>
       <WalletList wallets={wallets} handleEdit={handleEdit} dispatch={dispatch} />
-      <WalletAction handleAdd={handleAdd} />
+      {wallets.length === 0 ? undefined : <WalletAction handleAdd={handleAdd} />}
       <Divider />
       <List dense={false}>
         <ListItem
@@ -64,7 +68,7 @@ const SideBar: FunctionComponent<SideBarProps> = () => {
                     edge="end"
                     aria-label="edit"
                     onClick={() => {
-                      setActiveWallet(undefined);
+                      setActiveWalletId(undefined);
                     }}
                   >
                     <Maximize />

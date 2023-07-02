@@ -4,7 +4,6 @@ import { StateCreator } from 'zustand';
 
 export interface AppStateSlice {
   activeChain: Chain;
-  activeWallet: Wallet | undefined;
   activeAsset: Asset;
   ensName: string;
   ensAddress: string | null;
@@ -14,7 +13,6 @@ export interface AppStateSlice {
   timeWindow: TimeWindow;
   walletInputs: Wallet | undefined;
   setActiveChain: (chain: Chain) => void;
-  setActiveWallet: (wallet: Wallet | undefined) => void;
   setActiveAsset: (activeAsset: Asset) => void;
   setEnsName: (ensName: string) => void;
   setEnsAddress: (ensAddress: string | null) => void;
@@ -26,7 +24,6 @@ export interface AppStateSlice {
 }
 export const createAppStateSlice: StateCreator<AppStateSlice> = (set) => ({
   activeChain: Chain.ETH,
-  activeWallet: undefined,
   activeAsset: { id: CG_STATIC[Chain.ETH].nativeAssetId, details: CG_STATIC[Chain.ETH] },
   ensName: '',
   ensAddress: null,
@@ -40,7 +37,6 @@ export const createAppStateSlice: StateCreator<AppStateSlice> = (set) => ({
       activeChain,
       activeAsset: { id: CG_STATIC[activeChain].nativeAssetId, details: CG_STATIC[activeChain] },
     })),
-  setActiveWallet: (activeWallet) => set(() => ({ activeWallet })),
   setActiveAsset: (activeAsset) => set(() => ({ activeAsset })),
   setEnsName: (ensName) => set(() => ({ ensName })),
   setEnsAddress: (ensAddress) => set(() => ({ ensAddress })),

@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'preact';
-import { Box, Divider, Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import { Link } from 'wouter-preact';
 
 import ExternalLink from './ExternalLink';
@@ -11,7 +11,6 @@ const Welcome: FunctionComponent = () => {
       <Grid container spacing={2}>
         <Grid item xs={6} md={8}>
           <Box>
-            <Divider />
             <Typography variant="h5" noWrap>
               Bring Your Own Address and API keys
             </Typography>

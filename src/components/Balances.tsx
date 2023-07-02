@@ -95,7 +95,7 @@ const Balances: FunctionComponent<BalancesProps> = ({ chainAddress }) => {
       <Typography variant="caption" display="block" gutterBottom>
         {coinGeckoAttribution()}
       </Typography>
-      <Stack direction="row" spacing={2}>
+      <Stack direction={{ xs: 'column', md: 'row' }} spacing={{ xs: 1, md: 2 }}>
         <BalanceItem
           balanceUsd={nativeBalanceUsd}
           unitsStr={nativeBalance}

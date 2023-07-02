@@ -150,7 +150,11 @@ const TripleChart: FunctionComponent<TripleChartProps> = ({ chainAddress }) => {
         </ToggleButtonGroup>
       </Box>
 
-      <Stack direction="row" divider={<Divider orientation="vertical" flexItem />} spacing={0.5}>
+      <Stack
+        direction={{ xs: 'column', md: 'row' }}
+        divider={<Divider orientation="vertical" flexItem />}
+        spacing={0.5}
+      >
         <LineChart
           data={assetBalancesChart}
           title={`${activeAsset.details.symbol} Balance`}
