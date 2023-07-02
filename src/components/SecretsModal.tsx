@@ -1,10 +1,11 @@
 import { FunctionComponent } from 'preact';
 import { useState } from 'preact/hooks';
-import { Eye, EyeOff, UserX } from 'preact-feather';
+import { Eye, EyeOff, UserX, X } from 'preact-feather';
 import {
   Box,
   TextField,
   Dialog,
+  DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
@@ -12,6 +13,8 @@ import {
   IconButton,
   Divider,
   Tooltip,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 
 import { SECRETS_KEYS } from '@/constants';
@@ -42,9 +45,14 @@ const SecretsModal: FunctionComponent<SecretsModalProps> = ({ toggleModal, showM
     setErrorMsg(undefined);
   }
 
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+
   return (
-    <Dialog open={showModal} onClose={toggleModal}>
-      <DialogTitle>Secrets Manager</DialogTitle>
+    <Dialog fullScreen={fullScreen} open={showModal} onClose={toggleModal}>
+      <DialogTitle>
+        <X onClick={toggleModal} color="grey" /> Secrets Manager 🌩️
+      </DialogTitle>
       <DialogContent>
         <DialogContentText>API private keys—only ever stored in your own browser</DialogContentText>
         {SECRETS_KEYS.map((key, index) => (
@@ -79,18 +87,20 @@ const SecretsModal: FunctionComponent<SecretsModalProps> = ({ toggleModal, showM
         <DialogContentText display="flex" justifyContent="flex-end">
           1-Click Clear All User Data—this cannot be undone!
         </DialogContentText>
-        <Tooltip title={'Clear All User Data'}>
-          <Box
-            display="flex"
-            justifyContent="flex-end"
-            onClick={() => {
-              localStorage.clear();
-              window.location.reload();
-            }}
-          >
-            <UserX />
-          </Box>
-        </Tooltip>
+        <DialogActions>
+          <Tooltip title={'Clear All User Data'}>
+            <Box
+              display="flex"
+              justifyContent="flex-end"
+              onClick={() => {
+                localStorage.clear();
+                window.location.reload();
+              }}
+            >
+              <UserX />
+            </Box>
+          </Tooltip>
+        </DialogActions>
       </DialogContent>
     </Dialog>
   );

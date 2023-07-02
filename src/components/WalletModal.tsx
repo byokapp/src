@@ -8,12 +8,15 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  useTheme,
+  useMediaQuery,
 } from '@mui/material';
 
 import { WalletsAction } from '@/reducers/walletsReducer';
 import { useBoundStore } from '@/stores/useBoundStore';
 import { Wallet } from '@/types';
 import { usePersistentAppStore } from '@/stores/persistentAppState';
+import { X } from 'preact-feather';
 
 interface WalletModalProps {
   showModal: boolean;
@@ -88,10 +91,16 @@ const WalletModal: FunctionComponent<WalletModalProps> = ({
     toggleModal();
   };
 
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+
   return (
-    <Dialog open={showModal} onClose={toggleModal}>
+    <Dialog fullScreen={fullScreen} open={showModal} onClose={toggleModal}>
       <form spellCheck={false} onSubmit={handleOnClick}>
-        <DialogTitle>{dataToEdit?.id ? 'Edit' : 'Add'}</DialogTitle>
+        <DialogTitle>
+          {fullScreen ? <X onClick={toggleModal} color="grey" /> : undefined}
+          {dataToEdit?.id ? 'Edit' : 'Add'}
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>Wallet</DialogContentText>
           <TextField
@@ -124,8 +133,8 @@ const WalletModal: FunctionComponent<WalletModalProps> = ({
           />
         </DialogContent>
         <DialogActions>
-          <Button type="submit" variant="contained" sx={{ textTransform: 'capitalize' }}>
-            {dataToEdit?.id ? 'Edit' : 'Add'} Wallet
+          <Button type="submit" variant="contained">
+            {dataToEdit?.id ? 'Make Changes' : 'Add Wallet'}
           </Button>
         </DialogActions>
       </form>
