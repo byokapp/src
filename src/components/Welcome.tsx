@@ -38,7 +38,7 @@ const Welcome: FunctionComponent = () => {
                   Bring Your Own Address and API keys
                 </Typography>
                 <Typography variant="overline" display="block" sx={{ mb: 5 }}>
-                  Crypto values: transparency, decentralization, composability
+                  transparency, decentralization, composability
                 </Typography>
               </>
             )}
@@ -46,26 +46,14 @@ const Welcome: FunctionComponent = () => {
             <Typography variant="h6">🗸 Enter an ENS name/paste an Ethereum address</Typography>
             <WalletAction handleAdd={handleAdd} />
 
-            <Typography variant="h6" sx={{ mt: 3 }}>
-              Private by Construction
-            </Typography>
-            <Typography variant="subtitle1">
-              Everything lives in your browser and with third-party data providers—there is no
-              database [<Link href="/uses">details</Link>]
+            <Typography sx={{ mt: 3 }}>
+              Private: no database [<Link href="/uses">details 👀</Link>]
             </Typography>
 
-            <Typography variant="h6" sx={{ mt: 3 }}>
-              FOSS
+            <Typography sx={{ mt: 3 }}>
+              FOSS: MIT license [
+              <ExternalLink href="https://github.com/byokapp/free">details 👀</ExternalLink>]
             </Typography>
-            <Typography variant="subtitle1">
-              MIT license, open code [
-              <ExternalLink href="https://github.com/byokapp/free">details</ExternalLink>] 👀
-            </Typography>
-
-            <Typography variant="h6" sx={{ mt: 3 }}>
-              Crypto Native
-            </Typography>
-            <Typography variant="subtitle1">naturally multi-chain (EVM) and ENS-aware</Typography>
           </Box>
         </Grid>
         <Grid item xs={6} md={4}>
