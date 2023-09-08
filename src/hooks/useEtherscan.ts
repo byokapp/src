@@ -13,6 +13,7 @@ const BASE_URL = {
   [Chain.MATIC]: `https://api.polygonscan.com/api?module=account`,
   [Chain.OPTIMISM]: `https://api-optimistic.etherscan.io/api?module=account`,
   [Chain.ARBITRUM]: `https://api.arbiscan.io/api?module=account`,
+  [Chain.BASE]: `https://api.basescan.org/api?module=account`,
 };
 
 interface EtherscanGenericResponse {

@@ -6,7 +6,8 @@ export type SecretsKey =
   | 'etherscan'
   | 'polygonscan'
   | 'optimistic-etherscan'
-  | 'arbiscan';
+  | 'arbiscan'
+  | 'basescan';
 export type Secrets = {
   [key in SecretsKey]?: string;
 };
@@ -15,6 +16,7 @@ export enum Chain {
   MATIC = 'MATIC',
   ARBITRUM = 'ARBITRUM',
   OPTIMISM = 'OPTIMISM',
+  BASE = 'BASE',
 }
 export enum TimeWindow {
   ONE_MONTH = '1_MONTH',

@@ -23,8 +23,15 @@ export const SECRETS_KEYS: SecretsKey[] = [
   'polygonscan',
   'optimistic-etherscan',
   'arbiscan',
+  'basescan',
 ];
-export const SUPPORTED_CHAINS = [Chain.ETH, Chain.MATIC, Chain.ARBITRUM, Chain.OPTIMISM];
+export const SUPPORTED_CHAINS = [
+  Chain.ETH,
+  Chain.MATIC,
+  Chain.ARBITRUM,
+  Chain.OPTIMISM,
+  Chain.BASE,
+];
 
 // these values mostly come from CoinGecko. Storing as constants for convenience
 export const CG_STATIC: { [chain in Chain]: ChainDetail } = {
@@ -72,6 +79,17 @@ export const CG_STATIC: { [chain in Chain]: ChainDetail } = {
     image: 'https://assets.coingecko.com/coins/images/25244/large/Optimism.png?1660904599',
     blockscan: 'Optimistic Etherscan',
     blockscanUrl: 'https://optimistic.etherscan.io',
+  },
+  BASE: {
+    id: 'base',
+    name: 'Base',
+    nativeAssetId: 'ethereum',
+    symbol: 'Base ETH',
+    decimals: 18,
+    platform: 'base',
+    image: 'https://assets.coingecko.com/asset_platforms/images/131/large/base.jpeg?1684806195',
+    blockscan: 'BaseScan',
+    blockscanUrl: 'https://basescan.org',
   },
 };
 

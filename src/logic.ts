@@ -65,6 +65,8 @@ export const mapChainToApiKey = (chain: Chain, secrets: Secrets): string | undef
       return secrets['optimistic-etherscan'];
     case Chain.ARBITRUM:
       return secrets.arbiscan;
+    case Chain.BASE:
+      return secrets.basescan;
     default:
       const _exhaustiveCheck: never = chain;
       throw new Error(`Unexpected chain: ' + ${_exhaustiveCheck}`);
