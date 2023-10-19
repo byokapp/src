@@ -152,15 +152,6 @@ const _getAlchemyBalance = memo(
 
 const _getAlchemyTokenBalances = memo(
   async (network: Network, address: string) => {
-    // Token API not supported yet on Base 2023-09-08
-    if (network === Network.BASE_MAINNET) {
-      const empty: TokenBalancesResponseErc20 = {
-        address: address,
-        tokenBalances: [],
-      };
-      return empty;
-    }
-
     const alchemyClient = getAlchemyClient(network);
     const res: TokenBalancesResponseErc20 = await alchemyClient.core.getTokenBalances(address, {
       type: TokenBalanceType.ERC20,
