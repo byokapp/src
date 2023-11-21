@@ -1,5 +1,4 @@
 import { FunctionComponent } from 'preact';
-import { ExternalLink as ExternalLinkIcon } from 'preact-feather';
 import {
   Avatar,
   Dialog,
@@ -13,7 +12,7 @@ import {
   Tooltip,
 } from '@mui/material';
 
-import { APPNAME, CG_STATIC, ENS_IMAGE, SAFE_ICON } from '@/constants';
+import { APPNAME, CG_STATIC, ENS_IMAGE, GITHUB_IMAGE, SAFE_ICON } from '@/constants';
 import { shortenHash } from '@/logic';
 import { Chain } from '@/types';
 
@@ -30,7 +29,7 @@ const AboutModal: FunctionComponent<AboutModalProps> = ({ toggleModal, showModal
     <Dialog open={showModal} onClose={toggleModal}>
       <DialogTitle>{APPNAME}</DialogTitle>
       <DialogContent>
-        <DialogContentText>v0.91 July 2023</DialogContentText>
+        <DialogContentText>v0.92 Nov 2023</DialogContentText>
         <List dense={false}>
           <ListItem disablePadding>
             <ListItemText
@@ -81,27 +80,27 @@ const AboutModal: FunctionComponent<AboutModalProps> = ({ toggleModal, showModal
         <DialogTitle>whoami</DialogTitle>
       </Tooltip>
       <DialogContent>
-        <List dense={true}>
-          <ListItem>
-            <ExternalLinkIcon size={18} />
-            <ExternalLink href={'https://blog.byokapp.xyz'}>blog.byokapp.xyz</ExternalLink>
-          </ListItem>
-        </List>
         <Tooltip title="byokapp.eth">
           <ListItem>
             <Avatar alt={'byokapp.eth'} src={ENS_IMAGE} sx={{ height: 18, width: 18, mx: 0.5 }} />
             byokapp.eth
           </ListItem>
         </Tooltip>
-        <Tooltip title="🌿Lens Protocol">
-          <ListItem>🌿artlu.lens</ListItem>
+        <Tooltip title="artlu.eth">
+          <ListItem>
+            <Avatar alt={'artlu.eth'} src={ENS_IMAGE} sx={{ height: 18, width: 18, mx: 0.5 }} />
+            artlu.eth
+          </ListItem>
         </Tooltip>
-        {false && (
-          <Tooltip title="Farcaster">
-            <ListItem>🌐artlu</ListItem>
-          </Tooltip>
-        )}
       </DialogContent>
+      <Divider />
+      <Tooltip title={'GitHub: BYOK App'}>
+        <DialogTitle>
+          <ExternalLink href={'https://github.com/byokapp'}>
+            <Avatar alt={'byokapp'} src={GITHUB_IMAGE} sx={{ height: 36, width: 36, mx: 0.5 }} />
+          </ExternalLink>
+        </DialogTitle>
+      </Tooltip>
     </Dialog>
   );
 };

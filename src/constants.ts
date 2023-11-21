@@ -96,6 +96,9 @@ export const CG_STATIC: { [chain in Chain]: ChainDetail } = {
 export const ENS_IMAGE: urlString =
   'https://assets.coingecko.com/coins/images/19785/small/acatxTm8_400x400.jpg?1635850140';
 
+export const GITHUB_IMAGE: urlString =
+  'https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png';
+
 export const SAFE_ICON: urlString = 'https://app.safe.global/favicons/favicon.ico';
 
 export const zeroString = () => '0';
